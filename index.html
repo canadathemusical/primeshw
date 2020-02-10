@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>professor stuff</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism-twilight.min.css">
+</head>
+
+<body>
+	<h2> prime thing</h2>
+	<p>Your professor sent you some code and told you that you will need to run it and explain how it works. this is pretty easy.</p>
+	<pre><code class="language-javascript">
+		m=prompt("number?")
+		for (n=2;n<=m;n=n+1)
+		{
+		var flag=0
+		for (i=2;i<=Math.sqrt(n);i=i+1)
+		{
+		if(n%i==0){flag=1}
+		}
+		if(flag==0){console.log("prime",n)}
+		}
+	</code>
+	</pre>
+	<p> this is pretty standard code stuff here. let's go over it line by line:</p>
+	<ol>
+		<li>
+			<pre><code class="language-javascript">m=prompt("number?")</code></pre>
+			here we declare the variable "m" and make it equal to whatever a user enters in a prompt with will appear on the screen reading "number?" just like the one you will encountered when you the button at the end of this document. so, if the user enters "1", m = 1. 
+		</li>
+		<li>
+			<pre><code class="language-javascript">for (n=2;n<=m;n=n+1)</code></pre>
+			this is what is called a "for loop". it's a pretty standard way to loop or iterate in programming. it is however archaic, but usually the first way someone learns to do such a thing. it breaks down into a few parts:
+			<ul>
+				<li><pre>n=2;</pre> this is the starting point. our loop starts at 2</li>
+				<li><pre>n<=m;</pre> while n is less than or equal to m, keep going</li>
+				<li><pre>n=n+1</pre>at each iteration go up by 1. so out loop is like 2, 3, 4, 5, 6, 7, 8,.. m. This can also be written as <pre>n++</pre> or <pre>n+=1</pre></li>
+			</ul>
+		</li>
+		<li>
+			<pre><code class="language-javascript">{</code></pre>
+			this opening bracket or brace starts the block for the loop we discussed above. Your professor's code is unindented, and genrally poorly formatted so it's difficult to read and see where braces do anything. at the end, I will write a more standard way of writing this code.
+		</li>
+		<li>
+			<pre><code class="language-javascript">var flag=0</code></pre>
+			here we decalre the variable flag and set it to 0.
+		</li>
+		<li>
+			<pre><code class="language-javascript">for (i=2;i<=Math.sqrt(n);i=i+1)</code></pre>
+			opening another for loop. a for loop inside of a for loop. 
+			<ul>
+				<li><pre>i=2;</pre> i is equal to 2 so we start at 2</li>
+				<li><pre>i<=Math.sqrt(n);</pre>while i is less than or equal to the square root of n, do a thing</li>
+				<li><pre>i=i+1</pre>go up by one at each iteration.</li>
+			</ul>
+		</li>
+		<li>
+			<pre><code class="language-javascript">{</code></pre>
+			this brace opens the second for loop.
+		</li>
+		<li>
+			<pre><code class="language-javascript">if(n%i==0){flag=1}</code></pre>
+			Here with a have a condition. IF something evaluates to "true" do something. in this case a way to say it in plain english is "if n is divisible by i, flag equals 1". so that condition is a great way to find whether something is divisible by something else. It's called modulo, that %. it gets the remainder of a division. 3%2=1. to find even numbers we do <pre>if(someInt%2==0){console.log(`${someInt} is fucking even!`)}</pre>. another odd programming thing is in this line. the "==" is is a comparison operator. if you write "=" , you're declaring a variable or cosntant. "==" and "===" compare two items. you can use "==" for now as "===" gets more tricky.
+		</li>
+		<li>
+			<pre><code class="language-javascript">}</code></pre>
+			this closing brace ends the second for loop
+		</li>
+		<li>
+			<pre><code class="language-javascript">if(flag==0){console.log("prime",n)}</code></pre>
+			another condition followed by a console.log. If flag equals 0, print "prime" followed by the value of n to the console.
+		</li>
+		<li>
+			<pre><code class="language-javascript">}</code></pre>
+			this closing brace or bracket ends the first for loop and the entire program. after this, things will print to the console as desired.
+		</li>
+	</ol>
+	<br>
+	<br>
+	<p>
+		so, I have a couple of issues here. 1. even though, it works, this code is poorly formatted. also, your professor doesn't use the var, let, or const keywords in the first declaration. this bothers me. I'm not sure why it even works. Javascript is tricksy little language. and and and and why use prompt and force you to run this in the browser but then make it print shit to the console? It would be better to have some <div>s and print to those. so here's how I would write this program and not get yelled at by my boss:
+	</p>
+	<pre><code class="language-js">
+		&lt;button onclick="primeFunction('imaPutShitHere')"&gt;Click me fool!&lt;/button&gt;
+		&lt;div id="imaPutShitHere"&gt;&lt;/div&gt;
+		&lt;script type="text/javascript"&gt;
+				const primeFunction = (target) => {
+			let m = prompt("number?");
+			for (let n=2; n<=m; n=n+1) {
+				var flag=0;
+				for (let i=2; i<=Math.sqrt(n); i=i+1) {
+					if(n%i==0){
+						flag=1;
+					}
+				}
+				if(flag==0){
+					let element = document.createElement("p");
+					element.textContent = `prime: ${n} `;
+					document.getElementById(`${target}`).appendChild(element);
+				}
+			}
+		}
+		&lt;/script&gt;
+	</code></pre>
+	<h3>click the button below to see it in action!</h3>
+	<button onclick="primeFunction('imaPutShitHere')">Click me fool!</button>
+		<div id="imaPutShitHere" style="margin-bottom: 10em;"></div>
+		<script type="text/javascript">
+		const primeFunction = (target) => {
+			let m = prompt("number?");
+			for (let n=2; n<=m; n=n+1) {
+				var flag=0;
+				for (let i=2; i<=Math.sqrt(n); i=i+1) {
+					if(n%i==0){
+						flag=1;
+					}
+				}
+				if(flag==0){
+					let element = document.createElement("p");
+					element.textContent = `prime: ${n} `;
+					document.getElementById(`${target}`).appendChild(element);
+				}
+			}
+		}
+		</script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/components/prism-core.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/plugins/autoloader/prism-autoloader.min.js"></script>
+</body>
+</html>

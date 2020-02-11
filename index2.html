@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>professor stuff</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism-okaidia.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-yrfSO0DBjS56u5M+SjWTyAHujrkiYVtRYh2dtB3yLQtUz3bodOeialO59u5lUCFF" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/plugins/line-numbers/prism-line-numbers.min.css">
+</head>
+
+<body>
+    <div class="main">
+        <h1>Prime Thing</h1>
+        <h3> The Code Itself:</h3>
+        On the previous page, we went over how to list the constiuent primes in a given input number. This is covered with the isPrime and constituentPrimes functions in the code below. The big difference between the constituentPrimes function and the printConstituentPrimes function from the previous page is that constituentPrimes returns an array of the primes that make up our input number instead of printing them out. this array is returned as xyz. xyz gets filled up with primes at each iteration of the loop with the line "xyz.push(n);". 
+        That leaves us with two functions: distantPrimes and sorted. the rest of this is console log, prompt, and some string interpolation, which I will get into after all is said and done. you ready to expore how distantPrimes and sorted work? Follow meeeeee!!!!
+        <div style="width: 50%;">
+            <pre class="line-numbers"><code class="language-javascript">
+let number = prompt("give me a number.")
+
+const isPrime = (n) => {
+    if (n < 2) return false;
+    for (i=2;i<=Math.sqrt(n);i=i+1) {
+        if(n%i==0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+const constituentPrimes = (m) => {
+  let xyz = [];
+    for (n=2;n<=m;n++) {
+        if(isPrime(n)){
+      xyz.push(n)
+    }
+    }
+  return xyz;
+}
+
+const distantPrimes = (a) => {
+    let c = constituentPrimes(a);
+    let n = [];
+    for (let i = 1; i < c.length; i++) {
+        n[i] = {
+          p1: c[i-1],
+          p2: c[i],
+          diff: c[i] - c[i-1]
+        }
+    }
+    return n
+}
+
+const sorted = (c) => distantPrimes(c).sort((a,b) => b.diff - a.diff);
+
+console.log(`P1=${sorted(number)[0].p1}, P2=${sorted(number)[0].p2}`);
+		</code>
+		</pre>
+        </div>
+        <h3>Distant Primes</h3>
+        distantPrimes looks like this:
+        <div style="width: 40%">
+                    <pre><code class="language-javascript">
+const distantPrimes = (a) => {
+    let c = constituentPrimes(a);
+    let n = [];
+    for (let i = 1; i < c.length; i++) {
+        n[i] = {
+          p1: c[i-1],
+          p2: c[i],
+          diff: c[i] - c[i-1]
+        }
+    }
+    return n
+}
+                    </code></pre>
+                </div>
+                and it gets a little fancier than the two previous functions. that is because it creates an array of objects. An object is a key value pair data type. think "name: Alisha, school: Hogwarts, age: 146". I did this so I could hold all 3 pieces of data for each difference of constituent primes: prime 1, prime 2, and the difference. Below is what distantPrimes outputs for the number 20.
+<div style="width: 40%">
+                    <pre><code class="language-javascript">
+[ <1 empty item>,
+  { p1: 2, p2: 3, diff: 1 },
+  { p1: 3, p2: 5, diff: 2 },
+  { p1: 5, p2: 7, diff: 2 },
+  { p1: 7, p2: 11, diff: 4 },
+  { p1: 11, p2: 13, diff: 2 },
+  { p1: 13, p2: 17, diff: 4 } ]</code></pre>
+                </div>
+                look at those sweet sweet objects. whooo. I couldn't figure out why I get that empty item at the top. I could probably look at up and get a good answer as well as a way to get rid of it but, it doesn't affect the end result of this program. so, I don't care. I just don't give a fuuuck.
+                <br>
+                <h3>Line by line every time</h3>
+        <ol>
+            <li>
+                <div style="width: 40%">
+                    <pre><code class="language-javascript">const distantPrimes = (a) => {
+                    </code></pre>
+                </div>
+                In this first line, we declare the function distantPrimes with an argument "a". Each function in this programhas a single argument which is always the input number. We get that from the prompt in this case.
+            </li>
+            <li>
+                <div style="width: 40%">
+                    <pre><code class="language-javascript">let c = constituentPrimes(a);</code></pre>
+                </div>
+                In this line we bring in the array xyz from the function constituentPrimes.
+            </li>
+            <li>
+                <div style="width: 40%">
+                    <pre><code class="language-javascript">let n = [];</code></pre>
+                </div>
+                We declare a variable with an empty array to fill up later.
+            </li>
+            <li>
+                <div style="width: 40%">
+                    <pre><code class="language-javascript">for (let i = 1; i < c.length; i++) {</code></pre>
+                </div>
+                In this line we start another for loop. This one starts at the second index of the array (1, arrays start at 0). we start at one because we need to subract the number before at each iteration. We iterate for the length of the array created by constiuentPrimes minus 1. If we go all the way to the end, we get an object like this { p1: 19, p2: undefined, diff: NaN }. and that helps nobody. like nobody, ya know? 
+            </li>
+            <li>
+                <div style="width: 40%">
+                    <pre><code class="language-javascript">n[i] = {</code></pre>
+                </div>
+                So we're creating an object in the array at each iteration. that object is n[i], in the array n, and the iteration is [i]. the bracket there is the opening of object notation. The next four lines could all be one line but having them on separate lines is prettier.
+            </li>
+            <li>
+                <div style="width: 40%">
+                    <pre><code class="language-javascript">p1: c[i-1],</code></pre>
+                </div>
+                Our first prime is the lower prime. so if were at iteration 1 and that is the second prime of 20, which is 3, c[i-1] is 2. In this line we assign c[i-1] to p1.
+            </li>
+            <li>
+                <div style="width: 40%">
+                    <pre><code class="language-javascript">p2: c[i],</code></pre>
+                </div>
+                p2 is the higher prime in that iteration. continuing with the first iteration of 20 thing, c[i] is 3.
+            </li>
+            <li>
+                <div style="width: 40%">
+                    <pre><code class="language-javascript">diff: c[i] - c[i-1]</code></pre>
+                </div>
+                here we assign the difference of the two primes to diff. so if the number is 20 and the iteration is 1, diff is 1. 3-2=1.
+            </li>
+            <li>
+                <div style="width: 40%">
+                    <pre><code class="language-javascript">}</code></pre>
+                </div>
+                and close the object for this iteration
+            </li>
+            <li>
+                <div style="width: 40%">
+                    <pre><code class="language-javascript">}</code></pre>
+                </div>
+                and close the for loop
+            </li>
+            <li>
+                <div style="width: 40%">
+                    <pre><code class="language-javascript">return n</code></pre>
+                </div>
+                return the array of objects know to the world henceforth as n. bow to the mighty n. Know your lowercase master which is n.
+            </li>
+            <li>
+                <div style="width: 40%">
+                    <pre><code class="language-javascript">}</code></pre>
+                </div>
+                This brackets finishes the function.
+            </li>
+        </ol>
+        <br>
+        <h3>sort it out</h3>
+        sorted looks like this:
+        <div style="width: 40%">
+                    <pre><code class="language-javascript">const sorted = (c) => distantPrimes(c).sort((a,b) => b.diff - a.diff);</code></pre>
+                </div>
+                That's because it didn't really need more than one line. and since it didn't, it also didn't need curly braces or the keyword "return". As of a long time ago, you dont really need the "return" keyword for a whole lot of javascript. It's "implicit". so if you're function literally does nothing but return a thing, one line it is. It could look like this though:
+                <div style="width: 40%">
+                    <pre><code class="language-javascript">const sorted = (c) => {
+    return distantPrimes(c).sort((a,b) => b.diff - a.diff);
+}</code></pre>
+                </div>
+                What sorted does is take an array of objects as an argument and sort it in descending order by diff. b is higher than a but we place it first. This has a pretty lovely side effect. Since the creation of the array of objects happens in order of p2 instead of diff, the lowest p1 and p2 will come first. when you then reverse sort by diff. the highest diff will be at the top, but the one with the lowest p1 and p2. like so:
+                <div style="width: 40%">
+                    <pre><code class="language-javascript">[ { p1: 7, p2: 11, diff: 4 },
+  { p1: 13, p2: 17, diff: 4 },</code></pre>
+                </div>
+                 This just happens to be what your prof asked for. weird. I thought that request would take more work.
+                 <br><br>
+                 <h3>Print this you son of a...</h3>
+                 the last line is the console log. It actually looks more scarier than it is, I pwomise.
+                 <div style="width: 40%">
+                     <pre>
+                         <code class="language-javascript">console.log(`P1=${sorted(number)[0].p1}, P2=${sorted(number)[0].p2}`);                             
+                         </code>
+                     </pre>
+                 </div>
+                 so the console.log() part I'm sure you understand by now. but what am I doing in that? String interpolation like a fucking boss. That's what. string interpolation is combining plain text with bits of code that output something to that plain text string. so this log if we have 20 as out number, prints "P1=7, P2=11". We can do this in javascript with backticks, they looks likes thiss (``). P1=${sorted(number)[0].p1} so this piece says "print 'P1' followed by the value of the p1 key in that array of objects at the first index [0] when sorted in reverse" or "P1=7"
+
+                 <br><br>Yo!, I'm tired. let me know if you want me to add anything to this page. I will do so gladly. Be well. Stay smart!
+        
+    <script src="index2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
+</body>
+
+</html>

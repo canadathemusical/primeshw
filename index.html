@@ -4,15 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <title>professor stuff</title>
+    <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism-okaidia.min.css">
     <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.4.1/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-yrfSO0DBjS56u5M+SjWTyAHujrkiYVtRYh2dtB3yLQtUz3bodOeialO59u5lUCFF" crossorigin="anonymous">
-    <style type="text/css">
-    .main {
-        margin-left: 3em;
-        margin-right: 3em;
-        display: block;
-    }
-    </style>
 </head>
 
 <body>
@@ -152,7 +146,7 @@ for (i=2;i<=Math.sqrt(n);i=i+1) {
 		flag=1
 	}
 }</code></pre>
-                    <p>This does the main work of finding primes. We can move that prime finder into a separate function for clairty and reusability.</p>
+                    <p>This does the main work of finding primes. This function says “if that input is less than two, it ain’t prime. If the input is divisible by any number from two through its square root, it ain’t prime. Otherwise we got us a prime." We use square root to save time. It can add unnecessary complexity on small numbers but, it saves computation time on larger ones. i&lt;input would work also but it could take a long goddamn time. We can move that prime finder into a separate function for clairty and reusability.</p>
                     <pre><code class="language-javascript">
 const isPrime = (n) => {
 	if (n < 2) return false;
@@ -229,36 +223,6 @@ const printConstituentPrimes = (target) => {
         <h4>Click the button below to see it in action!</h4>
         <button onclick="printConstituentPrimes('imaPutShitHere')" type="button" class="btn btn-primary" style="margin-bottom: 1em;">Click me fool!</button>
         <div id="imaPutShitHere" style="margin-bottom: 1em;"></div>
-        <script type="text/javascript">
-        const getNumNums = () => {
-            let m = prompt("number?");
-            if (!m.match(/^[0-9]+$/)) {
-                alert("Use only integers. Please try again.");
-            }
-            return m;
-        }
-
-        const isPrime = (n) => {
-            if (n < 2) return false;
-            for (i = 2; i <= Math.sqrt(n); i = i + 1) {
-                if (n % i == 0) {
-                    return false;
-                }
-            }
-            return true;
-        }
-
-        const printConstituentPrimes = (target) => {
-            let m = getNumNums();
-            for (n = 2; n <= m; n = n + 1) {
-                if (isPrime(n)) {
-                    let element = document.createElement("p");
-                    element.textContent = `prime: ${n} `;
-                    document.getElementById(`${target}`).appendChild(element);
-                }
-            }
-        }
-        </script>
         <p>What I did there is use HTML to style it up and not have to open the console to read the outcome. I appended the text inside the body of the page to make it easy to read. You can see how I did that with createElement, textContent, and appendChild. The button div and script tags are just HTML to hold it all together. Another thing I added was a way to fail if the user doesn't input numbers into the prompt function, getNumNums(), with the lines:
             <pre>
 					if(!m.match(/^[0-9]+$/)){
@@ -266,9 +230,12 @@ const printConstituentPrimes = (target) => {
 					}
 			</pre>
             There isn't really a good reason to have these functions separated. I just wanted to break it down so hopefully each piece makes a bit more sense.
+
+            If you're ready, we can move on to part two. <a href="index2.html"><h3>click here for part deux!!!!</h3></a> <br>
             Be well. Stay smart!
         </p>
     </div>
+    <script src="index.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/components/prism-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/plugins/autoloader/prism-autoloader.min.js"></script>
 </body>
